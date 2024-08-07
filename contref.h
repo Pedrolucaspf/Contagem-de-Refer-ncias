@@ -6,8 +6,8 @@ void *p;
 int cont;
 }ContRef;
 
-#define MAX 100
-#define atrib2(v1, v2) atribnew((void**)&(v1), (v2))
+#define MAX 1024
+//#define atrib2(v1, v2) atribnew((void**)&(v1), (v2))
 
 static ContRef ponteiros[MAX];
 static int count = 0;
@@ -19,11 +19,17 @@ int i;
       return i;
     }
   }
+  return -1;
 }
 
 void mostraCont(void *p){
   int i = find(p);
+  if(i!=-1){
   printf("\nContagem de ponteiros: %d. \n", ponteiros[i].cont);
+  }
+  else{
+    printf("\nNenhuma referencia encontrada.\n");
+  }
 }
 
 static void addPont(void* p){
@@ -40,8 +46,9 @@ void* malloc2(size_t size){
   return p;
 }
 
-void atribnew(void** v1, void* v2){
+void atrib2(void** v1, void* v2){
   int i = find(*v1);
+  if(i!=-1){
   if (ponteiros[i].cont - 1 == 0){
     free(ponteiros[i].p);
     ponteiros[i] = ponteiros[count - 1];
@@ -49,7 +56,7 @@ void atribnew(void** v1, void* v2){
   } else{
     ponteiros[i].cont--;
   }
-
+  }
   if (v2 != NULL){
     i = find(v2);
     ponteiros[i].cont++;
