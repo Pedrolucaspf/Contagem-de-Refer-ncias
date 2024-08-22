@@ -7,7 +7,6 @@ int cont;
 }ContRef;
 
 #define MAX 1024
-//#define atrib2(v1, v2) atribnew((void**)&(v1), (v2))
 
 static ContRef ponteiros[MAX];
 static int count = 0;
